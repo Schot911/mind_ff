@@ -95,6 +95,13 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.adminIsFalse;
+    if (value != null) {
+      result
+        ..add('admin_isFalse')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -163,6 +170,10 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
           result.displayName = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'admin_isFalse':
+          result.adminIsFalse = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -198,6 +209,8 @@ class _$UsersRecord extends UsersRecord {
   @override
   final String? displayName;
   @override
+  final bool? adminIsFalse;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$UsersRecord([void Function(UsersRecordBuilder)? updates]) =>
@@ -214,6 +227,7 @@ class _$UsersRecord extends UsersRecord {
       this.name,
       this.photoUrl,
       this.displayName,
+      this.adminIsFalse,
       this.ffRef})
       : super._();
 
@@ -238,6 +252,7 @@ class _$UsersRecord extends UsersRecord {
         name == other.name &&
         photoUrl == other.photoUrl &&
         displayName == other.displayName &&
+        adminIsFalse == other.adminIsFalse &&
         ffRef == other.ffRef;
   }
 
@@ -252,16 +267,18 @@ class _$UsersRecord extends UsersRecord {
                             $jc(
                                 $jc(
                                     $jc(
-                                        $jc($jc(0, email.hashCode),
-                                            uid.hashCode),
-                                        createdTime.hashCode),
-                                    phoneNumber.hashCode),
-                                leaderIsFalse.hashCode),
-                            calendar.hashCode),
-                        bookings.hashCode),
-                    name.hashCode),
-                photoUrl.hashCode),
-            displayName.hashCode),
+                                        $jc(
+                                            $jc($jc(0, email.hashCode),
+                                                uid.hashCode),
+                                            createdTime.hashCode),
+                                        phoneNumber.hashCode),
+                                    leaderIsFalse.hashCode),
+                                calendar.hashCode),
+                            bookings.hashCode),
+                        name.hashCode),
+                    photoUrl.hashCode),
+                displayName.hashCode),
+            adminIsFalse.hashCode),
         ffRef.hashCode));
   }
 
@@ -278,6 +295,7 @@ class _$UsersRecord extends UsersRecord {
           ..add('name', name)
           ..add('photoUrl', photoUrl)
           ..add('displayName', displayName)
+          ..add('adminIsFalse', adminIsFalse)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -331,6 +349,10 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   String? get displayName => _$this._displayName;
   set displayName(String? displayName) => _$this._displayName = displayName;
 
+  bool? _adminIsFalse;
+  bool? get adminIsFalse => _$this._adminIsFalse;
+  set adminIsFalse(bool? adminIsFalse) => _$this._adminIsFalse = adminIsFalse;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -352,6 +374,7 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _name = $v.name;
       _photoUrl = $v.photoUrl;
       _displayName = $v.displayName;
+      _adminIsFalse = $v.adminIsFalse;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -387,6 +410,7 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
               name: name,
               photoUrl: photoUrl,
               displayName: displayName,
+              adminIsFalse: adminIsFalse,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

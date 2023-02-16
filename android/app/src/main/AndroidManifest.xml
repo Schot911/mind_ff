@@ -5,7 +5,7 @@
 
 
     <application
-        android:label="MindChat App"
+        android:label="MindChat"
         tools:replace="android:label"
         android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true">
@@ -45,7 +45,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="mindchatapp" android:host="mindchatapp.com" />
+                <data android:scheme="mindchat" android:host="mindchat.com" />
             </intent-filter>
 
         </activity>

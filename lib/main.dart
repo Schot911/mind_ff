@@ -10,6 +10,8 @@ import 'backend/firebase/firebase_config.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
+import 'package:flutter/foundation.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'flutter_flow/nav/nav.dart';
 import 'index.dart';
@@ -17,6 +19,10 @@ import 'index.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initFirebase();
+
+  if (!kIsWeb) {
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  }
 
   runApp(MyApp());
 }
@@ -34,7 +40,7 @@ class _MyAppState extends State<MyApp> {
   Locale? _locale;
   ThemeMode _themeMode = ThemeMode.system;
 
-  late Stream<MindChatAppFirebaseUser> userStream;
+  late Stream<MindChatFirebaseUser> userStream;
 
   late AppStateNotifier _appStateNotifier;
   late GoRouter _router;
@@ -46,7 +52,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     _appStateNotifier = AppStateNotifier();
     _router = createRouter(_appStateNotifier);
-    userStream = mindChatAppFirebaseUserStream()
+    userStream = mindChatFirebaseUserStream()
       ..listen((user) => _appStateNotifier.update(user));
     jwtTokenStream.listen((_) {});
     Future.delayed(
@@ -73,7 +79,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'MindChat App',
+      title: 'MindChat',
       localizationsDelegates: [
         FFLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
@@ -81,7 +87,10 @@ class _MyAppState extends State<MyApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
       locale: _locale,
-      supportedLocales: const [Locale('en', '')],
+      supportedLocales: const [
+        Locale('ru'),
+        Locale('en'),
+      ],
       theme: ThemeData(brightness: Brightness.light),
       themeMode: _themeMode,
       routeInformationParser: _router.routeInformationParser,
@@ -102,7 +111,7 @@ class NavBarPage extends StatefulWidget {
 
 /// This is the private State class that goes with NavBarPage.
 class _NavBarPageState extends State<NavBarPage> {
-  String _currentPageName = 'HomePage';
+  String _currentPageName = 'myDate';
   late Widget? _currentPage;
 
   @override
@@ -115,9 +124,9 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
-      'HomePage': HomePageWidget(),
-      'CreateLeader': CreateLeaderWidget(),
-      'ListenerList': ListenerListWidget(),
+      'myDate': MyDateWidget(),
+      'AddDate': AddDateWidget(),
+      'Profile': ProfileWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
     return Scaffold(
@@ -137,38 +146,36 @@ class _NavBarPageState extends State<NavBarPage> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.group,
+              Icons.date_range,
               size: 36,
             ),
             activeIcon: Icon(
-              Icons.group,
+              Icons.date_range,
               size: 36,
             ),
-            label: 'Ведущие',
+            label: FFLocalizations.of(context).getText(
+              'qacjou4n' /* Мои даты */,
+            ),
             tooltip: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.add_location_rounded,
+              Icons.playlist_add_rounded,
               size: 36,
             ),
-            activeIcon: Icon(
-              Icons.add_location_rounded,
-              size: 36,
+            label: FFLocalizations.of(context).getText(
+              'ay7j8box' /* Добавить дату */,
             ),
-            label: 'Добавить',
             tooltip: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.person,
+              Icons.account_circle_outlined,
               size: 36,
             ),
-            activeIcon: Icon(
-              Icons.person,
-              size: 36,
+            label: FFLocalizations.of(context).getText(
+              'sox4v46i' /* Мой профиль */,
             ),
-            label: 'Слушатели',
             tooltip: '',
           )
         ],

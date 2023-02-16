@@ -1,4 +1,4 @@
-# MindChat App
+# MindChat
 
 A new Flutter project.
 

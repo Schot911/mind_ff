@@ -398,7 +398,10 @@ class _EditUsersWidgetState extends State<EditUsersWidget> {
                                         onPressed: () async {
                                           Navigator.pop(context);
                                         },
-                                        text: 'Отмена',
+                                        text:
+                                            FFLocalizations.of(context).getText(
+                                          '97t6k9cu' /* Отмена */,
+                                        ),
                                         options: FFButtonOptions(
                                           height: 40,
                                           color: Colors.white,
@@ -434,7 +437,10 @@ class _EditUsersWidgetState extends State<EditUsersWidget> {
                                               .reference
                                               .update(listenersUpdateData);
                                         },
-                                        text: 'Сохранить',
+                                        text:
+                                            FFLocalizations.of(context).getText(
+                                          '1rrpetg0' /* Сохранить */,
+                                        ),
                                         options: FFButtonOptions(
                                           height: 40,
                                           color: Colors.white,

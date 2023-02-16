@@ -1,6 +1,7 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
+import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -52,10 +53,27 @@ class _CreateLeaderWidgetState extends State<CreateLeaderWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         automaticallyImplyLeading: false,
         title: Text(
-          'Добавить пользователя',
+          FFLocalizations.of(context).getText(
+            '87ntoy5v' /* Добавить пользователя */,
+          ),
           style: FlutterFlowTheme.of(context).title2,
         ),
-        actions: [],
+        actions: [
+          FlutterFlowIconButton(
+            borderColor: Colors.transparent,
+            borderRadius: 30,
+            borderWidth: 1,
+            buttonSize: 60,
+            icon: Icon(
+              Icons.close,
+              color: FlutterFlowTheme.of(context).primaryText,
+              size: 30,
+            ),
+            onPressed: () async {
+              context.pushNamed('myDate');
+            },
+          ),
+        ],
         centerTitle: true,
         elevation: 0,
       ),
@@ -77,7 +95,9 @@ class _CreateLeaderWidgetState extends State<CreateLeaderWidget> {
                       controller: _model.userNameController,
                       obscureText: false,
                       decoration: InputDecoration(
-                        labelText: 'Имя',
+                        labelText: FFLocalizations.of(context).getText(
+                          '0nfkdjv8' /* Имя */,
+                        ),
                         hintStyle: FlutterFlowTheme.of(context).bodyText2,
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -124,7 +144,9 @@ class _CreateLeaderWidgetState extends State<CreateLeaderWidget> {
                       controller: _model.emailAddressController,
                       obscureText: false,
                       decoration: InputDecoration(
-                        labelText: 'Email',
+                        labelText: FFLocalizations.of(context).getText(
+                          'b1162kyu' /* Email */,
+                        ),
                         hintStyle: FlutterFlowTheme.of(context).bodyText2,
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -172,7 +194,9 @@ class _CreateLeaderWidgetState extends State<CreateLeaderWidget> {
                       controller: _model.phoneController,
                       obscureText: false,
                       decoration: InputDecoration(
-                        labelText: 'Номер телефона',
+                        labelText: FFLocalizations.of(context).getText(
+                          'vzpjqehd' /* Номер телефона */,
+                        ),
                         hintStyle: FlutterFlowTheme.of(context).bodyText2,
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -219,13 +243,22 @@ class _CreateLeaderWidgetState extends State<CreateLeaderWidget> {
                     child: FlutterFlowDropDown<bool>(
                       initialOption: _model.roleValue ??= false,
                       options: [true, false],
-                      optionLabels: ['Ведущий', 'Слушатель'],
+                      optionLabels: [
+                        FFLocalizations.of(context).getText(
+                          'u07tfe5d' /* Ведущий */,
+                        ),
+                        FFLocalizations.of(context).getText(
+                          '0gprpxe7' /* Слушатель */,
+                        )
+                      ],
                       onChanged: (val) =>
                           setState(() => _model.roleValue = val),
                       width: double.infinity,
                       height: 60,
                       textStyle: FlutterFlowTheme.of(context).bodyText1,
-                      hintText: 'Роль',
+                      hintText: FFLocalizations.of(context).getText(
+                        'z6npg2gn' /* Роль */,
+                      ),
                       icon: Icon(
                         Icons.keyboard_arrow_down_rounded,
                         color: FlutterFlowTheme.of(context).secondaryText,
@@ -259,7 +292,9 @@ class _CreateLeaderWidgetState extends State<CreateLeaderWidget> {
                           .doc()
                           .set(leadersCreateData);
                     },
-                    text: 'Добавить ведущего',
+                    text: FFLocalizations.of(context).getText(
+                      '7fs7zwfe' /* Добавить ведущего */,
+                    ),
                     options: FFButtonOptions(
                       width: 270,
                       height: 50,
@@ -291,7 +326,9 @@ class _CreateLeaderWidgetState extends State<CreateLeaderWidget> {
                           .doc()
                           .set(listenersCreateData);
                     },
-                    text: 'Добавить слушателя',
+                    text: FFLocalizations.of(context).getText(
+                      'snuqeuwy' /* Добавить слушателя */,
+                    ),
                     options: FFButtonOptions(
                       width: 270,
                       height: 50,

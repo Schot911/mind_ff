@@ -48,10 +48,27 @@ class _ListenerListWidgetState extends State<ListenerListWidget> {
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         automaticallyImplyLeading: false,
         title: Text(
-          'Слушатели',
+          FFLocalizations.of(context).getText(
+            'pvmatoar' /* Слушатели */,
+          ),
           style: FlutterFlowTheme.of(context).title3,
         ),
-        actions: [],
+        actions: [
+          FlutterFlowIconButton(
+            borderColor: Colors.transparent,
+            borderRadius: 30,
+            borderWidth: 1,
+            buttonSize: 60,
+            icon: Icon(
+              Icons.close,
+              color: FlutterFlowTheme.of(context).primaryText,
+              size: 30,
+            ),
+            onPressed: () async {
+              context.pushNamed('myDate');
+            },
+          ),
+        ],
         centerTitle: false,
         elevation: 0,
       ),

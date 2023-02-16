@@ -34,6 +34,9 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   @BuiltValueField(wireName: 'display_name')
   String? get displayName;
 
+  @BuiltValueField(wireName: 'admin_isFalse')
+  bool? get adminIsFalse;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -47,7 +50,8 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..bookings = ListBuilder()
     ..name = ''
     ..photoUrl = ''
-    ..displayName = '';
+    ..displayName = ''
+    ..adminIsFalse = false;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -79,6 +83,7 @@ Map<String, dynamic> createUsersRecordData({
   String? name,
   String? photoUrl,
   String? displayName,
+  bool? adminIsFalse,
 }) {
   final firestoreData = serializers.toFirestore(
     UsersRecord.serializer,
@@ -93,7 +98,8 @@ Map<String, dynamic> createUsersRecordData({
         ..bookings = null
         ..name = name
         ..photoUrl = photoUrl
-        ..displayName = displayName,
+        ..displayName = displayName
+        ..adminIsFalse = adminIsFalse,
     ),
   );
 

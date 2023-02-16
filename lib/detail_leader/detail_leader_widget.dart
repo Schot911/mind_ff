@@ -108,7 +108,9 @@ class _DetailLeaderWidgetState extends State<DetailLeaderWidget> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            'E-mail',
+                                            FFLocalizations.of(context).getText(
+                                              'homm36mi' /* E-mail */,
+                                            ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyText1,
                                           ),
@@ -128,7 +130,10 @@ class _DetailLeaderWidgetState extends State<DetailLeaderWidget> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              'Номер телефона',
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                'uc46uf54' /* Номер телефона */,
+                                              ),
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyText1,
@@ -152,7 +157,10 @@ class _DetailLeaderWidgetState extends State<DetailLeaderWidget> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              'Роль',
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                '9ztplu9q' /* Роль */,
+                                              ),
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyText1,
@@ -178,16 +186,24 @@ class _DetailLeaderWidgetState extends State<DetailLeaderWidget> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              'Количество занятий',
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                'ndo66m80' /* Количество занятий */,
+                                              ),
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyText1,
                                             ),
                                             Text(
-                                              detailLeaderUsersRecord.calendar!
-                                                  .toList()
-                                                  .length
-                                                  .toString(),
+                                              formatNumber(
+                                                detailLeaderUsersRecord
+                                                    .calendar!
+                                                    .toList()
+                                                    .length,
+                                                formatType: FormatType.decimal,
+                                                decimalType:
+                                                    DecimalType.commaDecimal,
+                                              ),
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyText1,
@@ -215,14 +231,18 @@ class _DetailLeaderWidgetState extends State<DetailLeaderWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
                         child: Text(
-                          'Дата',
+                          FFLocalizations.of(context).getText(
+                            'rqvsnmk0' /* Дата */,
+                          ),
                           style: FlutterFlowTheme.of(context).bodyText1,
                         ),
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
                         child: Text(
-                          'Доступно',
+                          FFLocalizations.of(context).getText(
+                            'ffpt8vqq' /* Доступно */,
+                          ),
                           style: FlutterFlowTheme.of(context).bodyText1,
                         ),
                       ),
@@ -232,7 +252,10 @@ class _DetailLeaderWidgetState extends State<DetailLeaderWidget> {
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                   child: StreamBuilder<List<CalendarRecord>>(
-                    stream: queryCalendarRecord(),
+                    stream: queryCalendarRecord(
+                      queryBuilder: (calendarRecord) =>
+                          calendarRecord.where('leader', isEqualTo: widget.ref),
+                    ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
                       if (!snapshot.hasData) {
@@ -283,62 +306,74 @@ class _DetailLeaderWidgetState extends State<DetailLeaderWidget> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.stretch,
                                             children: [
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  StreamBuilder<
-                                                      List<UsersRecord>>(
-                                                    stream: queryUsersRecord(
-                                                      singleRecord: true,
-                                                    ),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      // Customize what your widget looks like when it's loading.
-                                                      if (!snapshot.hasData) {
-                                                        return Center(
-                                                          child: SizedBox(
-                                                            width: 50,
-                                                            height: 50,
-                                                            child:
-                                                                CircularProgressIndicator(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryColor,
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(8, 4, 8, 4),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    StreamBuilder<
+                                                        List<UsersRecord>>(
+                                                      stream: queryUsersRecord(
+                                                        singleRecord: true,
+                                                      ),
+                                                      builder:
+                                                          (context, snapshot) {
+                                                        // Customize what your widget looks like when it's loading.
+                                                        if (!snapshot.hasData) {
+                                                          return Center(
+                                                            child: SizedBox(
+                                                              width: 50,
+                                                              height: 50,
+                                                              child:
+                                                                  CircularProgressIndicator(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryColor,
+                                                              ),
                                                             ),
-                                                          ),
+                                                          );
+                                                        }
+                                                        List<UsersRecord>
+                                                            textUsersRecordList =
+                                                            snapshot.data!;
+                                                        final textUsersRecord =
+                                                            textUsersRecordList
+                                                                    .isNotEmpty
+                                                                ? textUsersRecordList
+                                                                    .first
+                                                                : null;
+                                                        return Text(
+                                                          '${dateTimeFormat(
+                                                            'd/M/y',
+                                                            listViewCalendarRecord
+                                                                .date,
+                                                            locale: FFLocalizations
+                                                                    .of(context)
+                                                                .languageCode,
+                                                          )} с ${listViewCalendarRecord.startTime} до ${listViewCalendarRecord.endTime}',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText1,
                                                         );
-                                                      }
-                                                      List<UsersRecord>
-                                                          textUsersRecordList =
-                                                          snapshot.data!;
-                                                      final textUsersRecord =
-                                                          textUsersRecordList
-                                                                  .isNotEmpty
-                                                              ? textUsersRecordList
-                                                                  .first
-                                                              : null;
-                                                      return Text(
-                                                        '${dateTimeFormat('d/M/y', listViewCalendarRecord.date)} с ${dateTimeFormat('Hm', listViewCalendarRecord.startTime)} до ${dateTimeFormat('Hm', listViewCalendarRecord.endTime)}',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyText1,
-                                                      );
-                                                    },
-                                                  ),
-                                                  Text(
-                                                    listViewCalendarRecord
-                                                            .available!
-                                                        ? 'Да'
-                                                        : 'Нет',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1,
-                                                  ),
-                                                ],
+                                                      },
+                                                    ),
+                                                    Text(
+                                                      listViewCalendarRecord
+                                                              .available!
+                                                          ? 'Да'
+                                                          : 'Нет',
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyText1,
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ],
                                           ),

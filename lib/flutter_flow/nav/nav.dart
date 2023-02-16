@@ -20,8 +20,8 @@ export 'serialization_util.dart';
 const kTransitionInfoKey = '__transition_info__';
 
 class AppStateNotifier extends ChangeNotifier {
-  MindChatAppFirebaseUser? initialUser;
-  MindChatAppFirebaseUser? user;
+  MindChatFirebaseUser? initialUser;
+  MindChatFirebaseUser? user;
   bool showSplashImage = true;
   String? _redirectLocation;
 
@@ -46,7 +46,7 @@ class AppStateNotifier extends ChangeNotifier {
   /// to perform subsequent actions (such as navigation) afterwards.
   void updateNotifyOnAuthChange(bool notify) => notifyOnAuthChange = notify;
 
-  void update(MindChatAppFirebaseUser newUser) {
+  void update(MindChatFirebaseUser newUser) {
     initialUser ??= newUser;
     user = newUser;
     // Refresh the app on auth change unless explicitly marked otherwise.
@@ -80,16 +80,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'HomePage',
               path: 'homePage',
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'HomePage')
-                  : HomePageWidget(),
+              builder: (context, params) => HomePageWidget(),
             ),
             FFRoute(
               name: 'ListenerList',
               path: 'listenerList',
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'ListenerList')
-                  : ListenerListWidget(),
+              builder: (context, params) => ListenerListWidget(),
             ),
             FFRoute(
               name: 'AuthPage',
@@ -99,9 +95,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'CreateLeader',
               path: 'createUser',
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'CreateLeader')
-                  : CreateLeaderWidget(),
+              builder: (context, params) => CreateLeaderWidget(),
+            ),
+            FFRoute(
+              name: 'drawerMenu',
+              path: 'drawerMenu',
+              builder: (context, params) => DrawerMenuWidget(),
             ),
             FFRoute(
               name: 'DetailLeader',
@@ -110,6 +109,27 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 ref: params.getParam(
                     'ref', ParamType.DocumentReference, false, ['users']),
               ),
+            ),
+            FFRoute(
+              name: 'AddDate',
+              path: 'addDate',
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'AddDate')
+                  : AddDateWidget(),
+            ),
+            FFRoute(
+              name: 'myDate',
+              path: 'my',
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'myDate')
+                  : MyDateWidget(),
+            ),
+            FFRoute(
+              name: 'Profile',
+              path: 'profile',
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'Profile')
+                  : ProfileWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

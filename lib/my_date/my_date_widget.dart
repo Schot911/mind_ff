@@ -7,18 +7,18 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'home_page_model.dart';
-export 'home_page_model.dart';
+import 'my_date_model.dart';
+export 'my_date_model.dart';
 
-class HomePageWidget extends StatefulWidget {
-  const HomePageWidget({Key? key}) : super(key: key);
+class MyDateWidget extends StatefulWidget {
+  const MyDateWidget({Key? key}) : super(key: key);
 
   @override
-  _HomePageWidgetState createState() => _HomePageWidgetState();
+  _MyDateWidgetState createState() => _MyDateWidgetState();
 }
 
-class _HomePageWidgetState extends State<HomePageWidget> {
-  late HomePageModel _model;
+class _MyDateWidgetState extends State<MyDateWidget> {
+  late MyDateModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
@@ -26,7 +26,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => HomePageModel());
+    _model = createModel(context, () => MyDateModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -59,7 +59,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   children: [
                     Text(
                       FFLocalizations.of(context).getText(
-                        'kq1adhan' /* Админ панель */,
+                        'tpjccvix' /* Админ панель */,
                       ),
                       style: FlutterFlowTheme.of(context).bodyText1,
                     ),
@@ -77,7 +77,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           context.pushNamed('HomePage');
                         },
                         text: FFLocalizations.of(context).getText(
-                          'n39cvxy0' /* Список ведущих */,
+                          '50oxid03' /* Список ведущих */,
                         ),
                         options: FFButtonOptions(
                           width: 130,
@@ -111,7 +111,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           context.pushNamed('ListenerList');
                         },
                         text: FFLocalizations.of(context).getText(
-                          'xdcussi2' /* Список слушателей */,
+                          '7y2g4v3v' /* Список слушателей */,
                         ),
                         options: FFButtonOptions(
                           width: 130,
@@ -146,7 +146,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           context.pushNamed('CreateLeader');
                         },
                         text: FFLocalizations.of(context).getText(
-                          'xzta8y2h' /* Добавить пользователя */,
+                          '52h8wbmr' /* Добавить пользователя */,
                         ),
                         options: FFButtonOptions(
                           width: 130,
@@ -216,31 +216,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         ),
         title: Text(
           FFLocalizations.of(context).getText(
-            'w80yfy4s' /* Список ведущих */,
+            'fwqy5247' /* Мои даты */,
           ),
-          textAlign: TextAlign.start,
           style: FlutterFlowTheme.of(context).title2.override(
                 fontFamily: 'Poppins',
                 color: Colors.black,
                 fontSize: 22,
               ),
         ),
-        actions: [
-          FlutterFlowIconButton(
-            borderColor: Colors.transparent,
-            borderRadius: 30,
-            borderWidth: 1,
-            buttonSize: 60,
-            icon: Icon(
-              Icons.close,
-              color: FlutterFlowTheme.of(context).primaryText,
-              size: 30,
-            ),
-            onPressed: () async {
-              context.pushNamed('myDate');
-            },
-          ),
-        ],
+        actions: [],
         centerTitle: false,
         elevation: 0,
       ),
@@ -251,11 +235,38 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(8, 4, 8, 15),
-              child: StreamBuilder<List<UsersRecord>>(
-                stream: queryUsersRecord(
-                  queryBuilder: (usersRecord) =>
-                      usersRecord.where('leader_isFalse', isEqualTo: true),
+              padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                    child: Text(
+                      FFLocalizations.of(context).getText(
+                        '3wctmhwa' /* Дата */,
+                      ),
+                      style: FlutterFlowTheme.of(context).bodyText1,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
+                    child: Text(
+                      FFLocalizations.of(context).getText(
+                        'ya50oheq' /* Доступно */,
+                      ),
+                      style: FlutterFlowTheme.of(context).bodyText1,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+              child: StreamBuilder<List<CalendarRecord>>(
+                stream: queryCalendarRecord(
+                  queryBuilder: (calendarRecord) => calendarRecord
+                      .where('leader', isEqualTo: currentUserReference),
                 ),
                 builder: (context, snapshot) {
                   // Customize what your widget looks like when it's loading.
@@ -270,24 +281,22 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       ),
                     );
                   }
-                  List<UsersRecord> listViewUsersRecordList = snapshot.data!;
+                  List<CalendarRecord> listViewCalendarRecordList =
+                      snapshot.data!;
                   return ListView.builder(
                     padding: EdgeInsets.zero,
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
-                    itemCount: listViewUsersRecordList.length,
+                    itemCount: listViewCalendarRecordList.length,
                     itemBuilder: (context, listViewIndex) {
-                      final listViewUsersRecord =
-                          listViewUsersRecordList[listViewIndex];
+                      final listViewCalendarRecord =
+                          listViewCalendarRecordList[listViewIndex];
                       return Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                         child: Card(
                           clipBehavior: Clip.antiAliasWithSaveLayer,
-                          color: Colors.white,
-                          elevation: 4,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -347,7 +356,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                 .first
                                                             : null;
                                                     return Text(
-                                                      listViewUsersRecord.name!,
+                                                      '${dateTimeFormat(
+                                                        'd/M/y',
+                                                        listViewCalendarRecord
+                                                            .date,
+                                                        locale:
+                                                            FFLocalizations.of(
+                                                                    context)
+                                                                .languageCode,
+                                                      )} с ${listViewCalendarRecord.startTime} до ${listViewCalendarRecord.endTime}',
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -355,58 +372,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     );
                                                   },
                                                 ),
-                                                Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          -1, 0),
-                                                  child: FFButtonWidget(
-                                                    onPressed: () async {
-                                                      context.pushNamed(
-                                                        'DetailLeader',
-                                                        queryParams: {
-                                                          'ref': serializeParam(
-                                                            listViewUsersRecord
-                                                                .reference,
-                                                            ParamType
-                                                                .DocumentReference,
-                                                          ),
-                                                        }.withoutNulls,
-                                                      );
-                                                    },
-                                                    text: FFLocalizations.of(
-                                                            context)
-                                                        .getText(
-                                                      'hskg6uea' /* Открыть */,
-                                                    ),
-                                                    options: FFButtonOptions(
-                                                      width: 150,
-                                                      height: 28,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryColor,
-                                                      textStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText1
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Poppins',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .tertiaryColor,
-                                                                fontSize: 12,
-                                                              ),
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Colors.transparent,
-                                                        width: 1,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              16),
-                                                    ),
-                                                  ),
+                                                Text(
+                                                  listViewCalendarRecord
+                                                          .available!
+                                                      ? 'Да'
+                                                      : 'Нет',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1,
                                                 ),
                                               ],
                                             ),

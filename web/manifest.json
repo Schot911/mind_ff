@@ -1,6 +1,6 @@
 {
-    "name": "MindChat App",
-    "short_name": "MindChat App",
+    "name": "MindChat",
+    "short_name": "MindChat",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

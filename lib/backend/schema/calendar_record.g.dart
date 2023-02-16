@@ -35,20 +35,6 @@ class _$CalendarRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    value = object.startTime;
-    if (value != null) {
-      result
-        ..add('start_time')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(DateTime)));
-    }
-    value = object.endTime;
-    if (value != null) {
-      result
-        ..add('end_time')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(DateTime)));
-    }
     value = object.available;
     if (value != null) {
       result
@@ -63,6 +49,20 @@ class _$CalendarRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 DocumentReference, const [const FullType.nullable(Object)])));
+    }
+    value = object.startTime;
+    if (value != null) {
+      result
+        ..add('start_time')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.endTime;
+    if (value != null) {
+      result
+        ..add('end_time')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
     }
     value = object.ffRef;
     if (value != null) {
@@ -95,14 +95,6 @@ class _$CalendarRecordSerializer
           result.date = serializers.deserialize(value,
               specifiedType: const FullType(DateTime)) as DateTime?;
           break;
-        case 'start_time':
-          result.startTime = serializers.deserialize(value,
-              specifiedType: const FullType(DateTime)) as DateTime?;
-          break;
-        case 'end_time':
-          result.endTime = serializers.deserialize(value,
-              specifiedType: const FullType(DateTime)) as DateTime?;
-          break;
         case 'available':
           result.available = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
@@ -112,6 +104,14 @@ class _$CalendarRecordSerializer
               specifiedType: const FullType(DocumentReference, const [
                 const FullType.nullable(Object)
               ])) as DocumentReference<Object?>?;
+          break;
+        case 'start_time':
+          result.startTime = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'end_time':
+          result.endTime = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
@@ -132,13 +132,13 @@ class _$CalendarRecord extends CalendarRecord {
   @override
   final DateTime? date;
   @override
-  final DateTime? startTime;
-  @override
-  final DateTime? endTime;
-  @override
   final bool? available;
   @override
   final DocumentReference<Object?>? leader;
+  @override
+  final String? startTime;
+  @override
+  final String? endTime;
   @override
   final DocumentReference<Object?>? ffRef;
 
@@ -148,10 +148,10 @@ class _$CalendarRecord extends CalendarRecord {
   _$CalendarRecord._(
       {this.eventId,
       this.date,
-      this.startTime,
-      this.endTime,
       this.available,
       this.leader,
+      this.startTime,
+      this.endTime,
       this.ffRef})
       : super._();
 
@@ -169,10 +169,10 @@ class _$CalendarRecord extends CalendarRecord {
     return other is CalendarRecord &&
         eventId == other.eventId &&
         date == other.date &&
-        startTime == other.startTime &&
-        endTime == other.endTime &&
         available == other.available &&
         leader == other.leader &&
+        startTime == other.startTime &&
+        endTime == other.endTime &&
         ffRef == other.ffRef;
   }
 
@@ -183,10 +183,10 @@ class _$CalendarRecord extends CalendarRecord {
             $jc(
                 $jc(
                     $jc($jc($jc(0, eventId.hashCode), date.hashCode),
-                        startTime.hashCode),
-                    endTime.hashCode),
-                available.hashCode),
-            leader.hashCode),
+                        available.hashCode),
+                    leader.hashCode),
+                startTime.hashCode),
+            endTime.hashCode),
         ffRef.hashCode));
   }
 
@@ -195,10 +195,10 @@ class _$CalendarRecord extends CalendarRecord {
     return (newBuiltValueToStringHelper(r'CalendarRecord')
           ..add('eventId', eventId)
           ..add('date', date)
-          ..add('startTime', startTime)
-          ..add('endTime', endTime)
           ..add('available', available)
           ..add('leader', leader)
+          ..add('startTime', startTime)
+          ..add('endTime', endTime)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -216,14 +216,6 @@ class CalendarRecordBuilder
   DateTime? get date => _$this._date;
   set date(DateTime? date) => _$this._date = date;
 
-  DateTime? _startTime;
-  DateTime? get startTime => _$this._startTime;
-  set startTime(DateTime? startTime) => _$this._startTime = startTime;
-
-  DateTime? _endTime;
-  DateTime? get endTime => _$this._endTime;
-  set endTime(DateTime? endTime) => _$this._endTime = endTime;
-
   bool? _available;
   bool? get available => _$this._available;
   set available(bool? available) => _$this._available = available;
@@ -231,6 +223,14 @@ class CalendarRecordBuilder
   DocumentReference<Object?>? _leader;
   DocumentReference<Object?>? get leader => _$this._leader;
   set leader(DocumentReference<Object?>? leader) => _$this._leader = leader;
+
+  String? _startTime;
+  String? get startTime => _$this._startTime;
+  set startTime(String? startTime) => _$this._startTime = startTime;
+
+  String? _endTime;
+  String? get endTime => _$this._endTime;
+  set endTime(String? endTime) => _$this._endTime = endTime;
 
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
@@ -245,10 +245,10 @@ class CalendarRecordBuilder
     if ($v != null) {
       _eventId = $v.eventId;
       _date = $v.date;
-      _startTime = $v.startTime;
-      _endTime = $v.endTime;
       _available = $v.available;
       _leader = $v.leader;
+      _startTime = $v.startTime;
+      _endTime = $v.endTime;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -274,10 +274,10 @@ class CalendarRecordBuilder
         new _$CalendarRecord._(
             eventId: eventId,
             date: date,
-            startTime: startTime,
-            endTime: endTime,
             available: available,
             leader: leader,
+            startTime: startTime,
+            endTime: endTime,
             ffRef: ffRef);
     replace(_$result);
     return _$result;
