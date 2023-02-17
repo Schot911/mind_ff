@@ -27,8 +27,8 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
     super.initState();
     _model = createModel(context, () => AuthPageModel());
 
-    _model.emailTextController = TextEditingController();
-    _model.passwordTextController = TextEditingController();
+    _model.emailTextController ??= TextEditingController();
+    _model.passwordTextController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 

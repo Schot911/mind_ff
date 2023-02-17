@@ -32,7 +32,7 @@ class _AddDateWidgetState extends State<AddDateWidget> {
     super.initState();
     _model = createModel(context, () => AddDateModel());
 
-    _model.tokenController = TextEditingController(
+    _model.tokenController ??= TextEditingController(
         text: random_data.randomString(
       10,
       15,
@@ -124,8 +124,7 @@ class _AddDateWidgetState extends State<AddDateWidget> {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
+                                color: Color(0x00000000),
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(8),
@@ -177,8 +176,7 @@ class _AddDateWidgetState extends State<AddDateWidget> {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
+                                color: Color(0x00000000),
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(8),

@@ -73,7 +73,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             automaticallyImplyLeading: false,
             title: Text(
               FFLocalizations.of(context).getText(
-                '98nzprgo' /* Profile */,
+                '98nzprgo' /* Мой профиль */,
               ),
               style: FlutterFlowTheme.of(context).title1,
             ),

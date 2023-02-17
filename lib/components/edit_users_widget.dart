@@ -42,7 +42,7 @@ class _EditUsersWidgetState extends State<EditUsersWidget> {
 
   @override
   void dispose() {
-    _model.dispose();
+    _model.maybeDispose();
 
     super.dispose();
   }

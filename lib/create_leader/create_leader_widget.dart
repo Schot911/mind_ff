@@ -30,9 +30,9 @@ class _CreateLeaderWidgetState extends State<CreateLeaderWidget> {
     super.initState();
     _model = createModel(context, () => CreateLeaderModel());
 
-    _model.userNameController = TextEditingController();
-    _model.emailAddressController = TextEditingController();
-    _model.phoneController = TextEditingController();
+    _model.userNameController ??= TextEditingController();
+    _model.emailAddressController ??= TextEditingController();
+    _model.phoneController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -109,8 +109,7 @@ class _CreateLeaderWidgetState extends State<CreateLeaderWidget> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color:
-                                FlutterFlowTheme.of(context).primaryBackground,
+                            color: Color(0x00000000),
                             width: 2,
                           ),
                           borderRadius: BorderRadius.circular(8),
@@ -158,8 +157,7 @@ class _CreateLeaderWidgetState extends State<CreateLeaderWidget> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color:
-                                FlutterFlowTheme.of(context).primaryBackground,
+                            color: Color(0x00000000),
                             width: 2,
                           ),
                           borderRadius: BorderRadius.circular(8),
@@ -208,8 +206,7 @@ class _CreateLeaderWidgetState extends State<CreateLeaderWidget> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color:
-                                FlutterFlowTheme.of(context).primaryBackground,
+                            color: Color(0x00000000),
                             width: 2,
                           ),
                           borderRadius: BorderRadius.circular(8),
